@@ -14,8 +14,9 @@ const sendCity = () => {
     weatherStore.setCity(cityInput.value)
     weatherStore.getWeather()
     cityInput.value = ''
-
 }
+
+
 
 watch(() => weatherStore.errorDialog, () => {
     if(weatherStore.errorDialog) {
@@ -38,12 +39,15 @@ setInterval(async () => {
 
 
 onMounted(async () => {
+    weatherStore.setRandomBackground()
     await weatherStore.getWeather()
 })
 </script>
 
 <template>
-    <div class="wrapper">
+    <!-- background-image: url('@/assets/backgrounds/grass.jpg'); -->
+
+    <div class="wrapper" :style="[{backgroundImage: `url('/backgrounds/${weatherStore.currentBackground}')`}]">
         <div class="wrapper__overlay">
             <div class="weather">
             <div class="weather__container">
@@ -59,7 +63,7 @@ onMounted(async () => {
                         </div>
                     </div>
                     <div style="display: flex; flex-direction: column; text-align: end; gap: .2em">
-                        <div style="display: flex; align-items: center;">
+                        <div style="display: flex; align-items: center; justify-content: flex-end;">
                             <div class="weather__city-icon"><img :src="weatherStore.weather.condition.icon" alt=""></div>
                             <div class="weather__temp">{{weatherStore.weather.temp}}°C</div>
                         </div>

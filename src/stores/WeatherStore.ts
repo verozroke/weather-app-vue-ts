@@ -1,30 +1,41 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
+import getRandomInt from '@/helpers/getRandomInt.js'
+import backgrounds from '@/json/backgrounds.json' assert {type: "json"}
 
-interface WeatherCondition {
+interface IWeatherCondition {
     text: string
     icon: string
 }
 
-interface Weather {
+interface IWeather {
     country: string
     city: string
     localtime: string
     temp: string
-    condition: WeatherCondition
+    condition: IWeatherCondition
     windSpeed: number
     feelsLike: number
+}
+
+type TypeTimeFormat = {
+    weekday: string,
+    year: string,
+    month: string,
+    day: string,
 }
 
 const useWeatherStore = defineStore(
     'weatherStore',
     () => {
         const city = ref('')
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const options: TypeTimeFormat = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const errorDialog = ref(false)
 
-        const weather = ref({
+        const currentBackground = ref('')
+
+        const weather: Ref<IWeather> = ref({
             country: '',
             city: '',
             localtime: '',
@@ -35,7 +46,7 @@ const useWeatherStore = defineStore(
             },
             windSpeed: 0,
             feelsLike: 0
-        }) as Ref<Weather>
+        })
 
         async function getWeather() {
             try {
@@ -60,6 +71,10 @@ const useWeatherStore = defineStore(
             }
         }
 
+        const setRandomBackground = () => {
+            currentBackground.value = backgrounds[getRandomInt(backgrounds.length)]
+        }
+
         const setErrorDialog = (bool: boolean) => {
             errorDialog.value = bool
         }
@@ -74,7 +89,9 @@ const useWeatherStore = defineStore(
             setCity,
             city,
             errorDialog,
-            setErrorDialog
+            setErrorDialog,
+            currentBackground,
+            setRandomBackground,
         }
     },
     {

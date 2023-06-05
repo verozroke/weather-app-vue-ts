@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+
 </script>
 
 <template>
@@ -26,7 +27,6 @@ html {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url('@/assets/backgrounds/grass.jpg');
     &__overlay {
         backdrop-filter: blur(5px);
         height: 100%;
