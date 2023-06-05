@@ -47,7 +47,7 @@ onMounted(async () => {
 <template>
     <!-- background-image: url('@/assets/backgrounds/grass.jpg'); -->
 
-    <div class="wrapper" :style="[{backgroundImage: `url('/backgrounds/${weatherStore.currentBackground}')`}]">
+    <div class="wrapper" :style="[{backgroundImage: `url('/weather-app-vue-ts/backgrounds/${weatherStore.currentBackground}')`}]">
         <div class="wrapper__overlay">
             <div class="weather">
             <div class="weather__container">

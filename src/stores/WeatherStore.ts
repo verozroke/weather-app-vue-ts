@@ -50,7 +50,7 @@ const useWeatherStore = defineStore(
 
         async function getWeather() {
             try {
-                const { data } = await axios.get('http://api.weatherapi.com/v1/current.json', {
+                const { data } = await axios.get('https://api.weatherapi.com/v1/current.json', {
                     params: {
                         key: '6a76d74f90cc4a41b1194955232705',
                         q: city.value ? city.value : 'Astana'
